@@ -1,7 +1,8 @@
 {
   "name": "vee",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Slack bot to help users have questions answered",
+  "repository": "https://github.com/devtheory/vee.git",
   "main": "server/service.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,6 +12,7 @@
   "dependencies": {
     "@slack/client": "^3.15.0",
     "dotenv": "^4.0.0",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "superagent": "^3.8.2"
   }
 }

@@ -12,9 +12,24 @@ function handleOnAuthenticated(rtmStartData){
 }
 
 function handleOnMessage(message){
-  nlp.ask(message.text);
-  rtm.sendMessage("Hello there", message.channel, function messageSent(){
+  nlp.ask(message.text, (err, res) => {
+    if(err){
+      console.log(err);
+      return;
+    }
 
+    if(!res.intent){
+      return rtm.sendMessage("Sorry, I don't understand", message.channel);
+    } else if(res.intent[0].value == 'time' && res.location){
+      return rtm.sendMessage(`I don't yet know the time in ${res.location[0].value}`,message.channel)
+    } else {
+      console.log(res);
+      return rtm.sendMessage("Sorry, I don't understand", message.channel);
+    }
+
+    rtm.sendMessage("Sorry, I didn't get that.", message.channel, function messageSent(){
+
+    });
   });
 }
 function addAuthenticatedHandler(rtm, handler){

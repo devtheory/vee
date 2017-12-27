@@ -22,7 +22,7 @@ function handleOnMessage(message){
       }
 
       try {
-        if(!res.intent || !intentType || intentType.value){
+        if(!res.intent || !intentType || !intentType.value){
           throw new Error('Could not extract intent');
         }
         const intent = require(`./intents/${intentType.value}Intent`);
@@ -44,7 +44,7 @@ function handleOnMessage(message){
       if(!res.intent){
         return rtm.sendMessage("Sorry, I don't understand", message.channel);
       } else if(intentType.value == 'time' && res.location){
-        return rtm.sendMessage(`I don't yet know the time in ${intentType.value}`,message.channel);
+        return rtm.sendMessage(`I don't yet know the time in ${res.location[0].value}`,message.channel);
       } else {
         console.log(res);
         return rtm.sendMessage("Sorry, I don't understand", message.channel);

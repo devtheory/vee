@@ -11,8 +11,6 @@ module.exports.process = function process(intentData, registry, callback){
   if(!intentData.location) return callback(new Error('Missing location in time intent'));
 
   const location = intentData.location[0].value;
-
-  console.log(`registry is ${registry}`)
   const service = registry.get('time');
 
   if(!service) return callback(false, 'No service available');

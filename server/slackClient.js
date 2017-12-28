@@ -15,7 +15,7 @@ function handleOnMessage(message){
   if(message.text.toLowerCase().includes('vee')){
     nlp.ask(message.text, (err, res) => {
       const intentType = res.intent && res.intent[0];
-      console.log(`intentType is ${intentType.value}`)
+
       if(err){
         console.log(err);
         return;
@@ -29,25 +29,14 @@ function handleOnMessage(message){
 
         intent.process(res, (error, response) => {
           if(error){
-            console.log(error.message);
+            rtm.sendMessage(error.message, message.channel);
             return;
           }
 
           return rtm.sendMessage(response, message.channel);
         })
       }catch(err){
-        console.log(err);
-        console.log(res);
-        rtm.sendMessage("Sorry, I don't know what you mean", message.channel);
-      }
-
-      if(!res.intent){
-        return rtm.sendMessage("Sorry, I don't understand", message.channel);
-      } else if(intentType.value == 'time' && res.location){
-        return rtm.sendMessage(`I don't yet know the time in ${res.location[0].value}`,message.channel);
-      } else {
-        console.log(res);
-        return rtm.sendMessage("Sorry, I don't understand", message.channel);
+        rtm.sendMessage(`Sorry, I don't know what you mean.` , message.channel);
       }
     })
   };

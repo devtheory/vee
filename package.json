@@ -2,7 +2,7 @@
   "name": "vee",
   "version": "1.0.0",
   "description": "A Slack bot to help users have questions answered",
-  "repository": "https://github.com/devtheory/vee.git",
+  "repository": "https://github.com/devtheory/vee-time.git",
   "main": "server/service.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

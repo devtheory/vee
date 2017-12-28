@@ -29,7 +29,12 @@ class ServiceRegistry {
 
   get(intent){
     this._cleanup();
-    return this._services.find(service => intent == service.intent);
+    for(let key in this._services){
+      if(this._services[key].intent == intent){
+        return this._services[key];
+      }
+    }
+    return null;
   }
 
   _cleanup(){

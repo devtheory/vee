@@ -2,7 +2,7 @@
 
 const request = require('superagent');
 
-module.exports.process = function process(intentData, callback){
+module.exports.process = function process(intentData, registry, callback){
   let intentType = intentData.intent[0].value;
   if(intentType != 'time'){
     return callback(new Error(`Expected time intent, got ${intentType}`))
@@ -12,10 +12,14 @@ module.exports.process = function process(intentData, callback){
 
   const location = intentData.location[0].value;
 
-  request.get(`http://localhost:4000/service/${location}`, (err, res) => {
+  console.log(`registry is ${registry}`)
+  const service = registry.get('time');
+
+  if(!service) return callback(false, 'No service available');
+
+  request.get(`http://${service.ip}:${service.port}/service/${location}`, (err, res) => {
     if(err || res.statusCode != 200 || !res.body.result){
       console.log(err);
-      console.log(res.body);
       return callback(false, `Could not find out the time in ${location}`);
     }
 
